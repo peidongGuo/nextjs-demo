@@ -81,6 +81,16 @@ https://codeditorproject.web.app/
 
 最后理想方案，参考第五个方案就可以。
 
+#### CMS 方案
+headless cms
+https://aws.amazon.com/cn/what-is/headless-cms/
+https://vercel.com/guides/integrating-next-js-and-contentful-for-your-headless-cms
+https://www.contentful.com/pricing/
+https://docs.strapi.io/dev-docs/intro
+https://devcenter.heroku.com/categories/data-management
+参考
+https://github.com/QingdaoU/OnlineJudge
+https://qduoj.com/problem/1
 
 ## Next.js App Router Course - Starter
 
