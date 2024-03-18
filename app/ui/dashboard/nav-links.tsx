@@ -2,7 +2,11 @@
 
 import {
   UserGroupIcon,
+  UserIcon,
   HomeIcon,
+  AcademicCapIcon,
+  PuzzlePieceIcon,
+  ShoppingCartIcon,
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -12,13 +16,23 @@ import clsx from 'clsx';
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
 const links = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon },
+  { name: '首页', href: '/dashboard', icon: HomeIcon },
+  { name: '个人信息', href: '/dashboard/profile', icon: UserIcon },
+  { name: '考试列表', href: '/dashboard/tests', icon: AcademicCapIcon },
   {
-    name: 'Invoices',
-    href: '/dashboard/invoices',
-    icon: DocumentDuplicateIcon,
+    name: '个人订单',
+    href: '/dashboard/orders',
+    icon: ShoppingCartIcon,
   },
-  { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  { name: '数据看板', href: '/dashboard', icon: HomeIcon },
+  { name: '试卷列表', href: '/dashboard/papers', icon: DocumentDuplicateIcon },
+  { name: '试题列表', href: '/dashboard/questions', icon: PuzzlePieceIcon },
+  { name: '用户列表', href: '/dashboard/customers', icon: UserGroupIcon },
+  {
+    name: '订单列表',
+    href: '/dashboard/orders',
+    icon: ShoppingCartIcon,
+  },
 ];
 
 export default function NavLinks() {
