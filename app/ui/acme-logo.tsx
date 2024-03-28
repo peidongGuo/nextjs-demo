@@ -1,4 +1,4 @@
-import { GlobeAltIcon } from '@heroicons/react/24/outline';
+import { CodeBracketIcon } from '@heroicons/react/24/outline';
 import { inter } from '@/app/ui/fonts';
 
 export default function AcmeLogo() {
@@ -6,8 +6,8 @@ export default function AcmeLogo() {
     <div
       className={`${inter.className} flex flex-row items-center leading-none text-white`}
     >
-      <GlobeAltIcon className="h-12 w-12 rotate-[15deg]" />
-      <p className="whitespace-nowrap text-[30px]">青少年编程</p>
+      <CodeBracketIcon className="h-8 w-8" />
+      <p className="ml-2 whitespace-nowrap text-[20px]">青少年编程</p>
     </div>
   );
 }
