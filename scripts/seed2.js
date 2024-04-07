@@ -2,14 +2,14 @@ const { db } = require('@vercel/postgres');
 
 const questions = '1660930633728188418,1660930633732382722,1660930633732382723';
 const paper1 = {
-  id: '110544b2-4001-4271-9855-fec4b6a6442a',
   title: '2022练习题库四级c++模拟试卷1（理论+编程）',
   creator: 'admin',
   level: 4,
   total_score: 100,
   duration: 90,
   tags: '编程实践,python',
-  questions: questions,
+  questions:
+    'e947b9e9-84e5-4663-a3e3-3310ca2fc853,d9ef7a01-48cf-4044-a3c2-a6d4348a9b10,ff05b2a6-695b-42e3-bdd3-6430e001a25b',
 };
 async function seedPapers(client) {
   try {
@@ -43,11 +43,16 @@ async function seedPapers(client) {
       }),
     );
 
+    // const deletePaper = await client.sql`
+    // DELETE FROM papers WHERE id ='b3477064-3742-465c-a7aa-638e272cc280';
+    // `;
+
     console.log(`Seeded ${insertedPapers.length} papers`);
 
     return {
       createTable,
       papers: insertedPapers,
+      // deletePaper,
     };
   } catch (error) {
     console.error('Error seeding papers:', error);

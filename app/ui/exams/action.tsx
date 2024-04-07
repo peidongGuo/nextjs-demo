@@ -10,3 +10,20 @@ export function generateAction(record?) {
 export function affixCointainer() {
   return document.getElementById('exam-detail');
 }
+
+export function generateTime(timestamp: Date) {
+  console.log('record', timestamp);
+  return timestamp.toLocaleString('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+}
+
+export function generateQuestionCount(questions) {
+  return questions.split(',').length;
+}

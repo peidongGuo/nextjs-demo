@@ -11,14 +11,8 @@ import QuestionCode from '@/app/ui/exams/QuestionCode';
 export const metadata: Metadata = {
   title: '试卷详情',
 };
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
+export default async function Page({ params }: { params: { id: string } }) {
+  const id = params.id;
   const data: Paper = papers[0];
 
   return (
@@ -54,7 +48,7 @@ export default async function Page({
           </Row>
         </Card>
         <Card title="单选题" className="w-full">
-          {data.questions.map((question, index) => {
+          {[].map((question, index) => {
             return (
               <div key={index} className="mb-4">
                 <Card key={question.id} className="w-full">

@@ -1,23 +1,16 @@
-import Pagination from '@/app/ui/invoices/pagination';
 import Search from '@/app/ui/search';
 import { Table, Skeleton } from 'antd';
 import { Suspense } from 'react';
-import { fetchInvoicesPages } from '@/app/lib/data';
+import { fetchFilteredPapers } from '@/app/lib/data-papers';
 import { Metadata } from 'next';
-import { Paper, QuestionType, papers } from '@/app/lib/placeholder-data2';
-import { generateAction } from '@/app/ui/exams/action';
-import { useServer } from 'next/dist/shared/server';
-import { record } from 'zod';
+import {
+  generateAction,
+  generateQuestionCount,
+  generateTime,
+} from '@/app/ui/exams/action';
 
 export const metadata: Metadata = {
   title: '试卷',
-};
-
-const ActionRenderer = ({ text, record }) => {
-  // Render 操作列的内容
-  // ...
-
-  return <span>{/* Render 的内容 */}</span>;
 };
 
 const columns = [
@@ -43,18 +36,21 @@ const columns = [
   },
   {
     title: '题目总数',
-    dataIndex: 'question_count',
-    key: 'question_count',
+    dataIndex: 'questions',
+    key: 'questions',
+    render: generateQuestionCount,
   },
   {
     title: '创建时间',
-    dataIndex: 'created_time',
-    key: 'created_time',
+    dataIndex: 'create_at',
+    key: 'create_at',
+    render: generateTime,
   },
   {
     title: '更新时间',
-    dataIndex: 'updated_time',
-    key: 'updated_time',
+    dataIndex: 'update_at',
+    key: 'update_at',
+    render: generateTime,
   },
   {
     title: '操作',
@@ -64,19 +60,8 @@ const columns = [
   },
 ];
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchInvoicesPages(query);
-
-  const dataSource = papers;
+export default async function Page() {
+  const papers = await fetchFilteredPapers('');
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -85,8 +70,8 @@ export default async function Page({
       <div className="mb-4 mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="搜索关键字" />
       </div>
-      <Suspense key={query + currentPage} fallback={<Skeleton active />}>
-        <Table columns={columns} dataSource={dataSource} />
+      <Suspense key={'exam-list'} fallback={<Skeleton active />}>
+        <Table columns={columns} dataSource={papers} />
       </Suspense>
     </div>
   );
