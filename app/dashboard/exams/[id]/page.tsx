@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { Button, Card, Col, Row, Space, Checkbox, Radio, Affix } from 'antd';
-import { Paper, QuestionType, papers } from '@/app/mock-data/placeholder-data2';
 import LandingSimple from '@/app/code-editor/LandingSimple';
 import AffixContainer from '@/app/ui/exams/affix';
 import TimeDeadLine from '@/app/ui/exams/TimeDeadLine';
@@ -8,6 +7,7 @@ import QuestionRadio from '@/app/ui/exams/QuestionRadio';
 import QuestionCheckbox from '@/app/ui/exams/QuestionCheckbox';
 import QuestionCode from '@/app/ui/exams/QuestionCode';
 import { fetchPaperById } from '@/app/services/data-papers';
+import { Paper } from '@/app/lib/models';
 
 export const metadata: Metadata = {
   title: '试卷详情',

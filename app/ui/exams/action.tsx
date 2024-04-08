@@ -25,5 +25,5 @@ export function generateTime(timestamp: Date) {
 }
 
 export function generateQuestionCount(questions) {
-  return questions.split(',').length;
+  return questions.length;
 }
