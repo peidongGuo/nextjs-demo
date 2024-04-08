@@ -7,8 +7,8 @@ import {
   LatestInvoiceRaw,
   User,
   Revenue,
-} from './definitions';
-import { formatCurrency } from './utils';
+} from '../lib/definitions';
+import { formatCurrency } from '../lib/utils';
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchRevenue() {

@@ -1,7 +1,7 @@
 import Search from '@/app/ui/search';
 import { Table, Skeleton } from 'antd';
 import { Suspense } from 'react';
-import { fetchFilteredPapers } from '@/app/lib/data-papers';
+import { fetchFilteredPapers } from '@/app/services/data-papers';
 import { Metadata } from 'next';
 import {
   generateAction,

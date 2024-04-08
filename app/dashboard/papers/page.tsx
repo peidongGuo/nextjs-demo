@@ -5,10 +5,10 @@ import { CreateInvoice } from '@/app/ui/invoices/buttons';
 import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { Suspense } from 'react';
-import { fetchInvoicesPages } from '@/app/lib/data';
+import { fetchInvoicesPages } from '@/app/services/data';
 import { Metadata } from 'next';
 import { Button, Card, Col, Row, Space, Checkbox, Radio, Input } from 'antd';
-import { Paper, QuestionType, papers } from '@/app/lib/placeholder-data2';
+import { Paper, QuestionType, papers } from '@/app/mock-data/placeholder-data2';
 import LandingSimple from '@/app/code-editor/LandingSimple';
 
 export const metadata: Metadata = {

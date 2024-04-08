@@ -1,9 +1,9 @@
 import Form from '@/app/ui/invoices/edit-form';
 import Breadcrumbs from '@/app/ui/invoices/breadcrumbs';
-import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
+import { fetchInvoiceById, fetchCustomers } from '@/app/services/data';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { Paper, QuestionType, papers } from '@/app/lib/placeholder-data2';
+import { Paper, QuestionType, papers } from '@/app/mock-data/placeholder-data2';
 import ExamRecord from '@/app/ui/exams/ExamRecord';
 
 export const metadata: Metadata = {

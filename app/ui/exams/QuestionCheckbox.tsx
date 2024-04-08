@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import type { RadioChangeEvent } from 'antd';
 import { Checkbox, Radio, Space } from 'antd';
-import { Question } from '@/app/lib/placeholder-data2';
+import { Question } from '@/app/mock-data/placeholder-data2';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { CheckboxValueType } from 'antd/es/checkbox/Group';
 

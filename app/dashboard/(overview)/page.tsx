@@ -6,7 +6,7 @@ import {
   // fetchRevenue,
   // fetchLatestInvoices,
   fetchCardData,
-} from '@/app/lib/data';
+} from '@/app/services/data';
 import { Suspense } from 'react';
 import {
   RevenueChartSkeleton,

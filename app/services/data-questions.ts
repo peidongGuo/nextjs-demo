@@ -1,6 +1,6 @@
 import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
-import { QuestionsTable } from './models/question';
+import { QuestionsTable } from '../lib/models';
 
 export async function fetchFilteredQuestions(query: string) {
   noStore();

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Card, Col, Row, Space, Checkbox, Radio, Affix } from 'antd';
-import { Paper, QuestionType, papers } from '@/app/lib/placeholder-data2';
+import { Paper, QuestionType, papers } from '@/app/mock-data/placeholder-data2';
 import TimeDeadLine from '@/app/ui/exams/TimeDeadLine';
 import QuestionRadio from '@/app/ui/exams/QuestionRadio';
 import QuestionCheckbox from '@/app/ui/exams/QuestionCheckbox';

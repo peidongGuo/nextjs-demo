@@ -3,7 +3,7 @@ import { Table, Skeleton } from 'antd';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { generateAction, generateTime } from '@/app/ui/exams/action';
-import { fetchFilteredQuestions } from '@/app/lib/data-questions';
+import { fetchFilteredQuestions } from '@/app/services/data-questions';
 
 export const metadata: Metadata = {
   title: '题目',

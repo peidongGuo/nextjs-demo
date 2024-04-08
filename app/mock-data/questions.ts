@@ -1,7 +1,9 @@
-const questions_data = [
+import { QuestionType, QuestionsTable } from '../lib/models';
+
+export const questions_data: QuestionsTable[] = [
   {
     id: '1660930633728188418',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '下面哪个表达式的结果和其他三项不同？',
     options: [
       "not ''",
@@ -17,7 +19,7 @@ const questions_data = [
   },
   {
     id: '1660930633732382722',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '运行这段程序，输出的结果是？',
     options: ['6', '5', '4', '3'],
     answer: 'D',
@@ -28,7 +30,7 @@ const questions_data = [
   },
   {
     id: '1660930633732382723',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '执行下列代码的结果为？',
     options: ['1', '3', '5', '8'],
     answer: 'A',
@@ -39,7 +41,7 @@ const questions_data = [
   },
   {
     id: '1660930633732382724',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '运行如下代码，输出的结果是？',
     options: ['0', '1', '2', '5'],
     answer: 'D',
@@ -50,7 +52,7 @@ const questions_data = [
   },
   {
     id: '1660930633732382725',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '运行下面的代码，一共可以打出多少个a？',
     options: ['12', '10', '8', '6'],
     answer: 'A',
@@ -61,7 +63,7 @@ const questions_data = [
   },
   {
     id: '1660930633736577026',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '以下选项中，属于计算机输入设备的是：',
     options: ['显示器', '控制器', '键盘', '存储器'],
     answer: 'C',
@@ -72,7 +74,7 @@ const questions_data = [
   },
   {
     id: '1660930633736577027',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '运行下列代码，会打印出多少个数字？',
     options: ['0', '1', '2', '3'],
     answer: 'C',
@@ -83,7 +85,7 @@ const questions_data = [
   },
   {
     id: '1660930633736577028',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '运行上述代码，输入：1，以下说法错误的是？',
     options: [
       '变量x中存储的是字符串',
@@ -99,7 +101,7 @@ const questions_data = [
   },
   {
     id: '1660930633736577029',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: "下面哪一行代码的输出结果不是'cooool'？",
     options: [
       "print('c' + 'oooo' + 'l')",
@@ -115,7 +117,7 @@ const questions_data = [
   },
   {
     id: '1660930633740771329',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '运行下列的代码，输出的结果为？',
     options: ['6', '5', '4', '3'],
     answer: 'A',
@@ -126,7 +128,7 @@ const questions_data = [
   },
   {
     id: '1660930633740771330',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '执行下列的代码，结果为：',
     options: ['1', '9', '0', '11'],
     answer: 'A',
@@ -137,7 +139,7 @@ const questions_data = [
   },
   {
     id: '1660930633744965634',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '下列说法正确的是？',
     options: [
       'int()命令可以将任何字符串转换成数字类型',
@@ -153,7 +155,7 @@ const questions_data = [
   },
   {
     id: '1660930633744965635',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '想要让画笔t向前移动60步，可以使用以下哪个命令？',
     options: ['t.right(60)', 't.left(60)', 't.forward(60)', 't.circle(60)'],
     answer: 'C',
@@ -164,7 +166,7 @@ const questions_data = [
   },
   {
     id: '1660930633744965636',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '22 % 3 的结果是',
     options: ['7', '1', '0', '5'],
     answer: 'B',
@@ -175,7 +177,7 @@ const questions_data = [
   },
   {
     id: '1660930633744965637',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '执行下列代码后，结果为？',
     options: ['小小，小小', '小小，a', 'a，a', 'a，小小'],
     answer: 'B',
@@ -186,7 +188,7 @@ const questions_data = [
   },
   {
     id: '1660930633749159937',
-    type: 'multiple_choice',
+    type: QuestionType.multiple_choice,
     title: '以下关于分支语句的说法中，错误的是？',
     options: [
       '单分支语句中，当if语句后边的条件不成立时，会执行它的下级代码',
@@ -202,7 +204,7 @@ const questions_data = [
   },
   {
     id: '1660930633749159938',
-    type: 'multiple_choice',
+    type: QuestionType.multiple_choice,
     title: '下列说法正确的是？',
     options: [
       '每个if语句后面都必须有elif或else语句',
@@ -218,7 +220,7 @@ const questions_data = [
   },
   {
     id: '1660930633749159939',
-    type: 'multiple_choice',
+    type: QuestionType.multiple_choice,
     title: '关于这段代码，以下描述正确的是？',
     options: [
       'm是数字，不是字符串',
@@ -234,7 +236,7 @@ const questions_data = [
   },
   {
     id: '1660930633749159940',
-    type: 'single_choice',
+    type: QuestionType.single_choice,
     title: '运行下列哪段代码，输出的结果是2.0？',
     options: [
       "print('1.0' * 2)",
@@ -250,7 +252,7 @@ const questions_data = [
   },
   {
     id: '1660930633753354241',
-    type: 'multiple_choice',
+    type: QuestionType.multiple_choice,
     title: '运行选项中的程序，能输出6的是？',
     options: [
       'print(1 + 5)',
@@ -266,7 +268,7 @@ const questions_data = [
   },
   {
     id: '1660930826846527490',
-    type: 'code',
+    type: QuestionType.code,
     title:
       '【题目描述】北京冬奥会马上就要开幕了。为了欢迎各个国家远道而来的运动员，小梦同学打算编写一段程序，实现以下功能：输入一个国家名，输出北京冬奥会欢迎这个国家的运动员。请你帮助小梦同学完成这个程序吧！',
     options: [null, null, null, null],
@@ -278,7 +280,7 @@ const questions_data = [
   },
   {
     id: '1660931066576166913',
-    type: 'code',
+    type: QuestionType.code,
     title:
       '【题目描述】某快递公司的运费计算规则如图所示；请你设计一个程序，实现以下功能：输入一个正整数，表示将要寄出的物品重量，输出需要支付的运费。',
     options: [null, null, null, null],
@@ -290,7 +292,7 @@ const questions_data = [
   },
   {
     id: '1660931181881778177',
-    type: 'code',
+    type: QuestionType.code,
     title:
       '【题目描述】三角形的三个内角和是180度，请编写程序，在输入一个三角形的两个内角度数后，可以输出第三个角的度数。',
     options: [null, null, null, null],
@@ -302,7 +304,7 @@ const questions_data = [
   },
   {
     id: '1660931328288153602',
-    type: 'code',
+    type: QuestionType.code,
     title:
       '【题目描述】方方去超市购物买了好多好吃的。他想写一个小程序，能够直接计算购买的东西总价格。方方会先告诉程序自己一共买了几样东西，然后依次输入每一种商品的价格，最后程序可以自动打印出结果。请你帮他实现程序内容。（程序中要有表示计算过程的语句）',
     options: [null, null, null, null],
@@ -313,7 +315,3 @@ const questions_data = [
     tags: [],
   },
 ];
-
-console.log(questions_data.map((question) => question.id));
-const ids = questions_data.map((question) => question.id).join(',');
-console.log(ids);
