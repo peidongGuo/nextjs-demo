@@ -1,10 +1,17 @@
 'use client';
 
 import { redirect } from 'next/navigation';
+import { DeleteQuestion, UpdateQuestion } from '../questions/buttons';
 
 export function generateAction(record?) {
   console.log('record', record);
-  return <a href={'/dashboard/exams/' + record.id}>查看</a>;
+  return (
+    <>
+      <a href={'/dashboard/exams/' + record.id}>查看</a>
+      <UpdateQuestion id={record.id} />
+      <DeleteQuestion id={record.id} />
+    </>
+  );
 }
 
 export function affixCointainer() {

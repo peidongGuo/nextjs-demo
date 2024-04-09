@@ -136,3 +136,30 @@ https://www.ciitpc.com/scratch3/index.html
 This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
 
 For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+
+
+
+#### 2024.4.8
+整理代码
+整理 mock 数据
+整理类型定义
+优化试卷页面
+
+#### 2024.4.9
+做完试题的增删改查 4T
+ 
+
+#### 2024.4.10
+做完试卷的增删改查 4T
+
+#### 2024.4.11
+做完测试记录的增改查 4T
+
+#### 2024.4.12
+做完订单记录的增改查 4T
+
+#### 2024.4.13
+做完用户记录的增改查 4T
+
+#### 2024.4.14
+完成用户管理及权限控制 4T

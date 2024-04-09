@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { generateAction, generateTime } from '@/app/ui/exams/action';
 import { fetchFilteredQuestions } from '@/app/services/data-questions';
+import { CreateQuestion } from '@/app/ui/questions/buttons';
 
 export const metadata: Metadata = {
   title: '题目',
@@ -60,6 +61,7 @@ const columns = [
     title: '操作',
     dataIndex: '',
     key: 'operation',
+    width: 200,
     render: generateAction,
   },
 ];
@@ -73,6 +75,7 @@ export default async function Page() {
       </div>
       <div className="mb-4 mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="搜索关键字" />
+        <CreateQuestion />
       </div>
       <Suspense key={'question-list'} fallback={<Skeleton active />}>
         <Table columns={columns} dataSource={questions} />
