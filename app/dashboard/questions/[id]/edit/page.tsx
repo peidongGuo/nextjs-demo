@@ -1,4 +1,4 @@
-import Form from '@/app/ui/questions/edit-form';
+import Form from '@/app/ui/questions/create-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchQuestionById } from '@/app/services/data-questions';
 import { notFound } from 'next/navigation';
@@ -17,15 +17,15 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Questions', href: '/dashboard/questions' },
+          { label: '试题', href: '/dashboard/questions' },
           {
-            label: 'Edit Question',
+            label: '编辑试题',
             href: `/dashboard/questions/${id}/edit`,
             active: true,
           },
         ]}
       />
-      <Form question={question} />
+      <Form question={question} isEdit={true} />
     </main>
   );
 }

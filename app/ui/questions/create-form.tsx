@@ -1,265 +1,228 @@
 'use client';
-
-import { CustomerField } from '@/app/lib/definitions';
 import Link from 'next/link';
+import { Button, Form, Input, Select } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
+import { useForm } from 'antd/lib/form/Form';
+import { PapersTable, QuestionsTable } from '@/app/lib/models';
+import { tags } from '@/app/lib/tags';
+import { useEffect } from 'react';
 import {
-  CheckIcon,
-  ClockIcon,
-  CurrencyDollarIcon,
-  UserCircleIcon,
-} from '@heroicons/react/24/outline';
-import { Button } from '@/app/ui/button';
-import { createQuestion } from '@/app/services/actions-questions';
-import { useFormState } from 'react-dom';
-import { QuestionsTable } from '@/app/lib/models';
+  updateQuestionNew,
+  createQuestionNew,
+} from '@/app/services/actions-questions';
 
-export default function Form({ question }: { question: QuestionsTable }) {
-  const initialState = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(createQuestion, initialState);
+const { Option } = Select;
 
+export default function CreateForm({
+  question,
+  isEdit,
+}: {
+  question: QuestionsTable;
+  isEdit?: boolean;
+}) {
+  const [form] = useForm();
+
+  const onFinish = (values: any) => {
+    isEdit ? updateQuestionNew(values) : createQuestionNew(values);
+  };
+
+  useEffect(() => {
+    console.log('question', question);
+    if (isEdit) {
+      form.setFieldsValue({
+        id: question.id,
+        title: question.title,
+        type: question.type,
+        options: question.options,
+        answer: question.answer,
+        difficulty: question.difficulty,
+        score: question.score,
+        analysis: question.analysis,
+        tags: question.tags,
+      });
+    }
+  }, [isEdit, form, question]);
   return (
-    <form action={dispatch}>
+    <Form form={form} onFinish={onFinish}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        <div className="mb-4">
-          <label htmlFor="title" className="mb-2 block text-sm font-medium">
-            标题
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="title"
-                name="title"
-                type="textarea"
-                placeholder="请输入题目名称"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-                required
-                aria-describedby="title-error"
-              />
-            </div>
-            <div id="title-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.title &&
-                state.errors.title.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
+        {isEdit && (
+          <div className="mb-4 hidden">
+            <Form.Item name="id" label="id">
+              <Input />
+            </Form.Item>
           </div>
-        </div>
-
+        )}
         <div className="mb-4">
-          <label htmlFor="type" className="mb-2 block text-sm font-medium">
-            题目类型
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <select
-                id="type"
-                name="type"
-                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-                required
-                aria-describedby="type-error"
-              >
-                <option value="" disabled>
-                  选择题目类型
-                </option>
-                <option value="single_choice">单选题</option>
-                <option value="multiple_choice">多选题</option>
-                <option value="judgment">判断题</option>
-                <option value="code">编码题</option>
-              </select>
-            </div>
-            <div id="type-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.type &&
-                state.errors.type.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="options" className="mb-2 block text-sm font-medium">
-            选项
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="options"
-                name="options"
-                type="textarea"
-                placeholder="请输入选项"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-                required
-                aria-describedby="options-error"
-              />
-            </div>
-            <div id="options-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.options &&
-                state.errors.options.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="answer" className="mb-2 block text-sm font-medium">
-            答案
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="answer"
-                name="answer"
-                type="textarea"
-                placeholder="请输入答案"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-                required
-                aria-describedby="answer-error"
-              />
-            </div>
-            <div id="answer-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.answer &&
-                state.errors.answer.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="analysis" className="mb-2 block text-sm font-medium">
-            分析
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="analysis"
-                name="analysis"
-                type="textarea"
-                placeholder="请输入分析"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-                required
-                aria-describedby="analysis-error"
-              />
-            </div>
-            <div id="analysis-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.analysis &&
-                state.errors.analysis.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="difficulty"
-            className="mb-2 block text-sm font-medium"
+          <Form.Item
+            name="title"
+            label="题目"
+            rules={[{ required: true, message: '请输入题目' }]}
           >
-            难度
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <select
-                id="difficulty"
-                name="difficulty"
-                className="peer block w-full cursor-pointer rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-                required
-                aria-describedby="difficulty-error"
-              >
-                <option value="" disabled>
-                  选择难度
-                </option>
-                <option value="1">简单</option>
-                <option value="2">一般</option>
-                <option value="3">中等</option>
-                <option value="4">偏难</option>
-                <option value="5">困难</option>
-              </select>
-            </div>
-            <div id="difficulty-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.difficulty &&
-                state.errors.difficulty.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
+            <Input placeholder="请输入题目" />
+          </Form.Item>
         </div>
         <div className="mb-4">
-          <label htmlFor="score" className="mb-2 block text-sm font-medium">
-            分数
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="score"
-                name="score"
-                type="number"
-                placeholder="请输入分数"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-                required
-                aria-describedby="score-error"
-              />
-            </div>
-            <div id="score-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.score &&
-                state.errors.score.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
-                ))}
-            </div>
-          </div>
+          <Form.Item
+            name="type"
+            label="类型"
+            rules={[{ required: true, message: '请选择题目类型' }]}
+          >
+            <Select placeholder="选择题目类型">
+              <Option value="single_choice">单选题</Option>
+              <Option value="multiple_choice">多选题</Option>
+              <Option value="judgment">判断题</Option>
+              <Option value="code">编码题</Option>
+            </Select>
+          </Form.Item>
         </div>
+        <div className="mb-4">
+          <Form.Item label="选项">
+            <Form.List name="options">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map((field, index) => (
+                    <Form.Item
+                      {...field}
+                      key={index}
+                      name={field.name}
+                      initialValue={form.getFieldValue(['options', field.name])}
+                      rules={[{ required: true, message: '请输入选项' }]}
+                    >
+                      <div className="mb-2 flex items-center">
+                        <Input placeholder="请输入选项" />
+                        <CloseOutlined onClick={() => remove(field.name)} />
+                      </div>
+                    </Form.Item>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block>
+                      + Add Option
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+          </Form.Item>
+          {/* <Form.Item
+            name="options"
+            label="选项"
+            rules={[{ required: true, message: '请输入选项' }]}
+          >
+            <Input.TextArea placeholder="请输入选项" />
+          </Form.Item>
+          <Form.Item
+            name="options"
+            label="选项"
+            rules={[{ required: true, message: '请输入选项' }]}
+          >
+            {question.options?.map((option, index) => (
+              <div key={index} className="mb-2 flex items-center">
+                <Input
+                  value={option}
+                  onChange={(e) => handleOptionChange(index, e.target.value)}
+                  placeholder="请输入选项"
+                />
+                <CloseOutlined onClick={() => handleRemoveOption(index)} />
+              </div>
+            ))}
+            <Button type="dashed" onClick={handleAddOption} block>
+              + Add Option
+            </Button>
+          </Form.Item>
 
-        <div className="mb-4">
-          <label htmlFor="tags" className="mb-2 block text-sm font-medium">
-            标签
-          </label>
-          <div className="relative mt-2 rounded-md">
-            <div className="relative">
-              <input
-                id="tags"
-                name="tags"
-                type="textarea"
-                placeholder="请输入标签"
-                className="peer block w-full rounded-md border border-gray-200 py-2 pl-4 text-sm outline-2 placeholder:text-gray-500"
-                required
-                aria-describedby="tags-error"
-              />
-            </div>
-            <div id="tags-error" aria-live="polite" aria-atomic="true">
-              {state.errors?.tags &&
-                state.errors.tags.map((error: string) => (
-                  <p className="mt-2 text-sm text-red-500" key={error}>
-                    {error}
-                  </p>
+          <Form.List name="options">
+            {(fields, { add, remove }) => (
+              <div
+                style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}
+              >
+                {fields.map((field) => (
+                  <>
+                    <Form.Item noStyle name={[field, 'first']}>
+                      <Input placeholder="first" />
+                    </Form.Item>
+
+                    <CloseOutlined
+                      onClick={() => {
+                        remove(field);
+                      }}
+                    />
+                  </>
                 ))}
-            </div>
-          </div>
+                <Button type="dashed" onClick={() => add()} block>
+                  + Add Item
+                </Button>
+              </div>
+            )}
+          </Form.List> */}
+        </div>
+        <div className="mb-4">
+          <Form.Item
+            name="answer"
+            label="答案"
+            rules={[{ required: true, message: '请输入答案' }]}
+          >
+            <Input.TextArea placeholder="请输入答案" />
+          </Form.Item>
+        </div>
+        <div className="mb-4">
+          <Form.Item
+            name="analysis"
+            label="分析"
+            rules={[{ required: true, message: '请输入分析' }]}
+          >
+            <Input.TextArea placeholder="请输入分析" />
+          </Form.Item>
+        </div>
+        <div className="mb-4">
+          <Form.Item
+            name="difficulty"
+            label="难度"
+            rules={[{ required: true, message: '请选择难度' }]}
+          >
+            <Select placeholder="选择难度">
+              <Option value="1">简单</Option>
+              <Option value="2">一般</Option>
+              <Option value="3">中等</Option>
+              <Option value="4">偏难</Option>
+              <Option value="5">困难</Option>
+            </Select>
+          </Form.Item>
+        </div>
+        <div className="mb-4">
+          <Form.Item
+            name="score"
+            label="分数"
+            rules={[{ required: true, message: '请输入分数' }]}
+          >
+            <Input type="number" placeholder="请输入分数" />
+          </Form.Item>
+        </div>
+        <div className="mb-4">
+          <Form.Item
+            name="tags"
+            label="标签"
+            rules={[{ required: true, message: '请选择标签' }]}
+          >
+            <Select placeholder="选择标签" mode="multiple">
+              {tags.map((tag, index) => (
+                <Option key={`tag-${index}`} value={tag}>
+                  {tag}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
         </div>
       </div>
       <div className="mt-6 flex justify-end gap-4">
-        <Link
-          href="/dashboard/questions"
-          className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
-        >
-          取消
+        <Link href="/dashboard/questions">
+          <Button className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200">
+            取消
+          </Button>
         </Link>
-        <Button type="submit">创建题目</Button>
+        <Button type="primary" htmlType="submit">
+          {isEdit ? '编辑试题' : '创建试题'}
+        </Button>
       </div>
-    </form>
+    </Form>
   );
 }

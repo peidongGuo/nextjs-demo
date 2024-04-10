@@ -71,9 +71,7 @@ export async function createQuestion(prevState: State, formData: FormData) {
   try {
     await sql`
       INSERT INTO questions (title,creator,type,score,options,tags,analysis,answer,difficulty)
-      VALUES (${title}, 'admin', ${type}, ${score}, ARRAY[${options.join(
-        ',',
-      )}], ARRAY[${tags.join(',')}], ${analysis}, ${answer}, ${difficulty})
+      VALUES (${title}, 'admin', ${type}, ${score}, ${options}, ${tags}, ${analysis}, ${answer}, ${difficulty})
     `;
   } catch (error) {
     console.error(error);
@@ -81,6 +79,81 @@ export async function createQuestion(prevState: State, formData: FormData) {
   }
   console.log('123');
 
+  revalidatePath('/dashboard/questions');
+  redirect('/dashboard/questions');
+}
+
+export async function createQuestionNew(values: any) {
+  // Prepare data for insertion into the database
+  const { title, type, options, answer, score, analysis, difficulty, tags } =
+    values;
+
+  // Test it out:
+  console.log(title, type, options, answer, score, analysis, difficulty, tags);
+  console.log('123');
+
+  try {
+    await sql`
+      INSERT INTO questions (title,creator,type,score,options,tags,analysis,answer,difficulty)
+      VALUES (${title}, 'admin', ${type}, ${score}, ${options}, ${tags}, ${analysis}, ${answer}, ${difficulty})
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Database Error: Failed to Create Question.' };
+  }
+  console.log('123');
+
+  revalidatePath('/dashboard/questions');
+  redirect('/dashboard/questions');
+}
+
+export async function updateQuestionNew(values: any) {
+  // Prepare data for insertion into the database
+  const {
+    id,
+    title,
+    type,
+    options,
+    answer,
+    score,
+    analysis,
+    difficulty,
+    tags,
+  } = values;
+
+  // Test it out:
+  console.log(
+    id,
+    title,
+    type,
+    options,
+    answer,
+    score,
+    analysis,
+    difficulty,
+    tags,
+  );
+  console.log('123');
+
+  try {
+    await sql`
+      UPDATE questions
+      SET
+        title = ${title},
+        type = ${type},
+        options = ARRAY[${options.join(',')}],
+        answer = ${answer},
+        score = ${score},
+        analysis = ${analysis},
+        difficulty = ${difficulty},
+        tags = ARRAY[${tags.join(',')}]
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: `Database Error: Failed to Update Question.${error}` };
+  }
+  console.log('123');
   revalidatePath('/dashboard/questions');
   redirect('/dashboard/questions');
 }

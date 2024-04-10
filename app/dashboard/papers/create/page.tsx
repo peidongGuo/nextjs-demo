@@ -2,11 +2,23 @@ import Form from '@/app/ui/papers/create-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchCustomers } from '@/app/services/data';
 import { Metadata } from 'next';
+import { fetchFilteredQuestions } from '@/app/services/data-questions';
+import { PapersTable } from '@/app/lib/models';
 export const metadata: Metadata = {
   title: 'Create Invoice',
 };
 export default async function Page() {
-  const customers = await fetchCustomers();
+  const initPaper: PapersTable = {
+    id: 'create',
+    creator: 'admin',
+    title: '',
+    total_score: 0,
+    duration: 0,
+    questions: [],
+    level: 0,
+    tags: [],
+  };
+  const questions = await fetchFilteredQuestions('');
 
   return (
     <main>
@@ -20,7 +32,7 @@ export default async function Page() {
           },
         ]}
       />
-      <Form customers={customers} />
+      <Form questions={questions} isEdit={false} paper={initPaper} />
     </main>
   );
 }

@@ -3,17 +3,7 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-export type PapersTable = {
-  id: string; // UUID
-  title: string; // TEXT
-  level: number; // INT
-  total_score: number; // INT
-  duration: number; // INT
-  tags: string[]; // TEXT
-  papers: string[]; // TEXT
-  create_at?: Date; // TIMESTAMP
-  update_at?: Date; // TIMESTAMP
-};
+import { PapersTable } from '../lib/models';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -67,16 +57,56 @@ export async function createPaper(prevState: State, formData: FormData) {
   const { title, total_score, duration, questions, level, tags } =
     validatedFields.data;
 
+  console.log(questions, tags);
   try {
     await sql`
       INSERT INTO papers (title,creator,duration,total_score,questions,tags,level)
-      VALUES (${title}, 'admin', ${duration}, ${total_score}, ARRAY[${questions.join(
-        ',',
-      )}], ARRAY[${tags.join(',')}], ${level})
+      VALUES (${title}, 'admin', ${duration}, ${total_score}, ${questions}, ${tags}, ${level})
     `;
   } catch (error) {
     console.error(error);
     return { message: 'Database Error: Failed to Create Paper.' };
+  }
+  revalidatePath('/dashboard/papers');
+  redirect('/dashboard/papers');
+}
+
+export async function createPaperNew(values: PapersTable) {
+  const { title, total_score, duration, questions, level, tags } = values;
+
+  console.log(questions, tags);
+  try {
+    await sql`
+      INSERT INTO papers (title,creator,duration,total_score,questions,tags,level)
+      VALUES (${title}, 'admin', ${duration}, ${total_score}, ${questions}, ${tags}, ${level})
+    `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Database Error: Failed to Create Paper.' };
+  }
+  revalidatePath('/dashboard/papers');
+  redirect('/dashboard/papers');
+}
+
+export async function updatePaperNew(values: PapersTable) {
+  // Prepare data for insertion into the database
+  const { id, title, total_score, duration, questions, level, tags } = values;
+  console.log(values);
+  try {
+    await sql`
+    UPDATE papers
+      SET
+        title = ${title},
+        total_score = ${total_score},
+        duration = ${duration},
+        questions = ${questions},
+        tags = ${tags},
+        level = ${level}
+      WHERE id = ${id}
+ `;
+  } catch (error) {
+    console.error(error);
+    return { message: 'Database Error: Failed to Update Paper.' };
   }
   revalidatePath('/dashboard/papers');
   redirect('/dashboard/papers');

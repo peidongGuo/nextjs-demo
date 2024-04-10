@@ -13,9 +13,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="w-full" id="exam-detail">
-      <div className="flex w-full items-center justify-between">
-        {/* <h1 className={`${lusitana.className} text-2xl`}>考试</h1> */}
-      </div>
+      <div className="flex w-full items-center justify-between"></div>
       <Space direction="vertical" size={16} className="w-full">
         <Card title={data.title} className="w-full">
           <div className="mb-4 flex w-full">

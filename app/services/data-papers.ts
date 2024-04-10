@@ -82,6 +82,7 @@ export async function fetchPaperWithQuestionsDetailById(id: string) {
     GROUP BY p.id;
     `;
     let result: Paper = {} as Paper;
+    console.log(data.rows[0].questions);
     if (data.rows[0]) {
       result = {
         ...data.rows[0],
