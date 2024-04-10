@@ -18,7 +18,7 @@ import clsx from 'clsx';
 const links = [
   { name: '首页', href: '/dashboard', icon: HomeIcon },
   { name: '用户', href: '/dashboard/profile', icon: UserIcon },
-  { name: '试卷', href: '/dashboard/exams', icon: DocumentDuplicateIcon },
+  { name: '试卷', href: '/dashboard/papers', icon: DocumentDuplicateIcon },
   { name: '考试', href: '/dashboard/exam-records', icon: AcademicCapIcon },
   { name: '试题', href: '/dashboard/questions', icon: AcademicCapIcon },
   {

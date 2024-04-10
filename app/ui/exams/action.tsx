@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { DeleteQuestion, UpdateQuestion } from '../questions/buttons';
+import { DeletePaper, UpdatePaper } from '../papers/buttons';
 
 export function generateAction(record?) {
   console.log('record', record);
@@ -10,6 +11,17 @@ export function generateAction(record?) {
       <a href={'/dashboard/exams/' + record.id}>查看</a>
       <UpdateQuestion id={record.id} />
       <DeleteQuestion id={record.id} />
+    </>
+  );
+}
+
+export function generatePapersAction(record?) {
+  console.log('record', record);
+  return (
+    <>
+      <a href={'/dashboard/papers/' + record.id}>查看</a>
+      <UpdatePaper id={record.id} />
+      <DeletePaper id={record.id} />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import Form from '@/app/ui/invoices/create-form';
+import Form from '@/app/ui/papers/create-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
 import { fetchCustomers } from '@/app/services/data';
 import { Metadata } from 'next';
@@ -12,10 +12,10 @@ export default async function Page() {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Invoices', href: '/dashboard/invoices' },
+          { label: '试卷', href: '/dashboard/papers' },
           {
-            label: 'Create Invoice',
-            href: '/dashboard/invoices/create',
+            label: '创建试卷',
+            href: '/dashboard/papers/create',
             active: true,
           },
         ]}

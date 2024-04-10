@@ -1,33 +1,31 @@
-import Form from '@/app/ui/invoices/edit-form';
+import Form from '@/app/ui/papers/edit-form';
 import Breadcrumbs from '@/app/ui/breadcrumbs';
-import { fetchInvoiceById, fetchCustomers } from '@/app/services/data';
+import { fetchPaperById } from '@/app/services/data-papers';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
-  title: 'Edit Invoice',
+  title: 'Edit Question',
 };
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
-  const [invoice, customers] = await Promise.all([
-    fetchInvoiceById(id),
-    fetchCustomers(),
-  ]);
-  if (!invoice) {
+  const paper = await fetchPaperById(id);
+
+  if (!paper) {
     notFound();
   }
   return (
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Invoices', href: '/dashboard/invoices' },
+          { label: '试卷', href: '/dashboard/papers' },
           {
-            label: 'Edit Invoice',
-            href: `/dashboard/invoices/${id}/edit`,
+            label: '编辑试卷',
+            href: `/dashboard/papers/${id}/edit`,
             active: true,
           },
         ]}
       />
-      <Form invoice={invoice} customers={customers} />
+      <Form paper={paper} />
     </main>
   );
 }

@@ -1,100 +1,81 @@
-import Pagination from '@/app/ui/invoices/pagination';
 import Search from '@/app/ui/search';
-import Table from '@/app/ui/invoices/table';
-import { CreateInvoice } from '@/app/ui/invoices/buttons';
-import { lusitana } from '@/app/ui/fonts';
-import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
+import { Table, Skeleton } from 'antd';
 import { Suspense } from 'react';
-import { fetchInvoicesPages } from '@/app/services/data';
+import { fetchFilteredPapers } from '@/app/services/data-papers';
 import { Metadata } from 'next';
-import { Button, Card, Col, Row, Space, Checkbox, Radio, Input } from 'antd';
-import { Paper, QuestionType, papers } from '@/app/mock-data/placeholder-data2';
-import LandingSimple from '@/app/code-editor/LandingSimple';
+import {
+  generateAction,
+  generatePapersAction,
+  generateQuestionCount,
+  generateTime,
+} from '@/app/ui/exams/action';
+import { CreatePaper } from '@/app/ui/papers/buttons';
 
 export const metadata: Metadata = {
-  title: 'Invoices',
+  title: '试卷',
 };
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
-  const data: Paper = papers[0];
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
-  const totalPages = await fetchInvoicesPages(query);
 
+const columns = [
+  {
+    title: '名称',
+    dataIndex: 'title',
+    key: 'title',
+  },
+  {
+    title: '标签',
+    dataIndex: 'tags',
+    key: 'tags',
+  },
+  {
+    title: '总分',
+    dataIndex: 'total_score',
+    key: 'total_score',
+  },
+  {
+    title: '时长',
+    dataIndex: 'duration',
+    key: 'duration',
+  },
+  {
+    title: '题目总数',
+    dataIndex: 'questions',
+    key: 'questions',
+    render: generateQuestionCount,
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'create_at',
+    key: 'create_at',
+    render: generateTime,
+  },
+  {
+    title: '更新时间',
+    dataIndex: 'update_at',
+    key: 'update_at',
+    render: generateTime,
+  },
+  {
+    title: '操作',
+    dataIndex: '',
+    key: 'operation',
+    render: generatePapersAction,
+  },
+];
+
+export default async function Page() {
+  const papers = await fetchFilteredPapers('');
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
-        {/* <h1 className={`${lusitana.className} text-2xl`}>考试</h1> */}
+        <h1 className={` text-2xl`}>试卷</h1>
       </div>
-      <Space direction="vertical" size={16} className="w-full">
-        <Card title={data.title} className="w-full">
-          <div className="mb-4 flex w-full">
-            <p className="mr-16">总分: {data.total_score} 分</p>
-            <p>时长: {data.duration} 分钟</p>
-          </div>
-          <Row className="mb-4">
-            <Col span={4}>题目总数</Col>
-            <Col span={4}>单选题数 </Col>
-            <Col span={4}>多选题数 </Col>
-            <Col span={4}>判断题数 </Col>
-            <Col span={4}>实践题数 </Col>
-            <Col span={4}>总分</Col>
-          </Row>
-          <Row>
-            <Col span={4}>{data.question_count}</Col>
-            <Col span={4}>{data.question_types.single_choice}</Col>
-            <Col span={4}>{data.question_types.multiple_choice}</Col>
-            <Col span={4}>{data.question_types.judgment}</Col>
-            <Col span={4}>{data.question_types.code}</Col>
-            <Col span={4}>{data.total_score}</Col>
-          </Row>
-        </Card>
-        <Card title="单选题" className="w-full">
-          {data.questions.map((question, index) => {
-            return (
-              <div className="mb-4">
-                <Card key={question.id} className="w-full">
-                  <p className="mb-4">
-                    {index + 1}. {question.title} {question.type}
-                  </p>
-
-                  <Space direction="vertical" size={8} className="w-full">
-                    {(question.type === 'single_choice' ||
-                      question.type === 'judgment') &&
-                      question.options?.map((option, index) => {
-                        return (
-                          <Radio key={index} value={option}>
-                            {String.fromCharCode(65 + index) + '. ' + option}
-                          </Radio>
-                        );
-                      })}
-                    {question.type === 'multiple_choice' &&
-                      question.options?.map((option, index) => {
-                        return (
-                          <Checkbox key={index} value={option}>
-                            {String.fromCharCode(65 + index) + '. ' + option}
-                          </Checkbox>
-                        );
-                      })}
-                    {question.type === 'code' && <LandingSimple key={index} />}
-                  </Space>
-                </Card>
-              </div>
-            );
-          })}
-        </Card>
-      </Space>
-
-      {/* <iframe
-        className="h-[800px] w-full"
-        src="https://www.ciitpc.com/python/index.html"
-      ></iframe> */}
+      <div className="mb-4 mt-4 flex items-center justify-between gap-2 md:mt-8">
+        <Search placeholder="搜索关键字" />
+        <CreatePaper />
+      </div>
+      <Suspense key={'exam-list'} fallback={<Skeleton active />}>
+        <Table columns={columns} dataSource={papers} />
+      </Suspense>
     </div>
   );
 }
