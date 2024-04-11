@@ -1,23 +1,25 @@
 'use client';
 
 import { Button, Card, Col, Row, Space, Checkbox, Radio, Affix } from 'antd';
-import { Paper, QuestionType, papers } from '@/app/mock-data/placeholder-data2';
 import TimeDeadLine from '@/app/ui/exams/TimeDeadLine';
 import QuestionRadio from '@/app/ui/exams/QuestionRadio';
 import QuestionCheckbox from '@/app/ui/exams/QuestionCheckbox';
 import QuestionCode from '@/app/ui/exams/QuestionCode';
 import { useState } from 'react';
+import { Exam, Paper } from '@/app/lib/models';
+import { updateExam } from '@/app/services/actions-exams';
 
-export default function ExamRecord({ paper }: { paper: Paper }) {
-  const data: Paper = paper;
-  const [answer, setAnswer] = useState({} as Record<string, string>);
+export default function ExamRecord({ exam }: { exam: Exam }) {
+  const data: Paper = exam.paper;
+  const [answers, setAnswers] = useState({} as Record<string, string>);
 
   const handleItemChange = (id: string, value: string) => {
-    setAnswer((prev) => ({ ...prev, [id]: value }));
+    setAnswers((prev) => ({ ...prev, [id]: value }));
   };
 
   const submit = () => {
-    console.log(answer);
+    console.log(answers);
+    updateExam({ ...exam, answers: answers });
   };
 
   return (

@@ -1,6 +1,16 @@
+'use client';
+import { createExamData1, exam1 } from '@/app/mock-data/exams';
 import { deletePaper } from '@/app/services/actions-papers';
-import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
+import {
+  CommandLineIcon,
+  PencilIcon,
+  PlusIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import ExamRecord from '../exams/ExamRecord';
+import { createExam } from '@/app/services/actions-exams';
+import { redirect } from 'next/navigation';
 // import { deletePaper } from '@/app/services/actions';
 
 export function CreatePaper() {
@@ -39,6 +49,25 @@ export function DeletePaper({ id }: { id: string }) {
     >
       <span className="sr-only">Delete</span>
       <TrashIcon className="w-4" />
+    </button>
+  );
+}
+
+export function CreateExam({ id }: { id: string }) {
+  const beginExam = async () => {
+    const exam = createExamData1;
+    exam.paper_id = id;
+    exam.start_time = new Date().toISOString();
+    await createExam(exam);
+  };
+
+  return (
+    <button
+      onClick={beginExam}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <span className="sr-only">开始测试</span>
+      <CommandLineIcon className="w-4" />
     </button>
   );
 }

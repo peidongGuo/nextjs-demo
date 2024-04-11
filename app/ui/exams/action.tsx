@@ -2,7 +2,9 @@
 
 import { redirect } from 'next/navigation';
 import { DeleteQuestion, UpdateQuestion } from '../questions/buttons';
-import { DeletePaper, UpdatePaper } from '../papers/buttons';
+import { CreateExam, DeletePaper, UpdatePaper } from '../papers/buttons';
+import { deleteExam } from '@/app/services/actions-exams';
+import { TrashIcon } from '@heroicons/react/24/outline';
 
 export function generateAction(record?) {
   console.log('record', record);
@@ -20,8 +22,19 @@ export function generatePapersAction(record?) {
   return (
     <>
       <a href={'/dashboard/papers/' + record.id}>查看</a>
+      <CreateExam id={record.id} />
       <UpdatePaper id={record.id} />
       <DeletePaper id={record.id} />
+    </>
+  );
+}
+
+export function generateExamsAction(record?) {
+  console.log('record', record);
+  return (
+    <>
+      <a href={'/dashboard/exams/' + record.id}>查看</a>
+      <DeleteExam id={record.id} />
     </>
   );
 }
@@ -44,5 +57,23 @@ export function generateTime(timestamp: Date) {
 }
 
 export function generateQuestionCount(questions) {
+  console.log('questions', questions);
   return questions.length;
+}
+
+export function DeleteExam({ id }: { id: string }) {
+  const deleteExamWithId = () => {
+    console.log(id);
+    deleteExam(id);
+  };
+
+  return (
+    <button
+      onClick={deleteExamWithId}
+      className="rounded-md border p-2 hover:bg-gray-100"
+    >
+      <span className="sr-only">Delete</span>
+      <TrashIcon className="w-4" />
+    </button>
+  );
 }

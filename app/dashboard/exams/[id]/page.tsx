@@ -1,15 +1,15 @@
 import { Metadata } from 'next';
 import { Button, Card, Col, Row, Space, Checkbox, Radio, Affix } from 'antd';
-import TimeDeadLine from '@/app/ui/exams/TimeDeadLine';
-import { fetchPaperById } from '@/app/services/data-papers';
-import { Paper } from '@/app/lib/models';
+import { Exam, Paper } from '@/app/lib/models';
+import { fetchExamById } from '@/app/services/data-exams';
 
 export const metadata: Metadata = {
-  title: '试卷详情',
+  title: '考试详情',
 };
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
-  const data: Paper = await fetchPaperById(id);
+  const exam: Exam = await fetchExamById(id);
+  const data = exam.paper;
   console.log(data);
 
   return (
@@ -22,10 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className="mb-4 flex w-full">
             <p className="mr-16">总分: {data.total_score} 分</p>
             <p className="mr-16">时长: {data.duration} 分钟</p>
-            <p>剩余时间：</p>
-            <div className="mt-[-10px]">
-              <TimeDeadLine />
-            </div>
+            <p className="mr-16">用间: {exam.duration} 分钟</p>
           </div>
           <Row className="mb-4">
             <Col span={4}>题目总数</Col>

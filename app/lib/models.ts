@@ -62,21 +62,40 @@ export type User = {
   update_time?: string;
 };
 
-export enum TestRecordStatus {
+export enum ExamStatus {
   finished = 'finished',
-  unfinished = 'unfinished',
+  suspended = 'suspended',
+  progress = 'progress',
 }
-export type TestRecord = {
+
+export type ExamsTable = {
+  id: string;
+  user_id: string;
+  paper_id: string;
+  score: number;
+  start_time: string;
+  end_time: string;
+  duration: number;
+  status: ExamStatus;
+  right_count: number;
+  total_count: number;
+  answers: Record<string, string>;
+  create_at?: Date; // TIMESTAMP
+  update_at?: Date; // TIMESTAMP
+};
+
+export type Exam = {
+  id: string;
   userinfo: User;
   paper: Paper;
   score: number;
   start_time: string;
   end_time: string;
   duration: number;
-  status: TestRecordStatus;
+  status: ExamStatus;
   right_count: number;
   total_count: number;
-  answers: { question_id: string; answer: string }[];
+  answers: Record<string, string>;
 };
 
 export enum OrderStatus {
