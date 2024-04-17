@@ -13,10 +13,13 @@ import {
   LatestInvoicesSkeleton,
   CardsSkeleton,
 } from '@/app/ui/skeletons';
+import { auth } from '@/auth';
 
 export default async function Page() {
   // const revenue = awaist fetchRevenue();
   // const latestInvoices = await fetchLatestInvoices();
+  const { user } = (await auth()) as any;
+  console.log('auth', user);
   const {
     numberOfCustomers,
     numberOfInvoices,
@@ -29,6 +32,7 @@ export default async function Page() {
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Dashboard
       </h1>
+      <h2>{user.name}</h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Suspense fallback={<CardsSkeleton />}>
           <CardWrapper />

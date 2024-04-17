@@ -51,13 +51,18 @@ export type QuestionsTable = {
   update_at?: Date; // TIMESTAMP
 };
 
+export enum UserRoles {
+  admin = 'admin',
+  customer = 'customer',
+}
+
 export type User = {
   id: string;
   name: string;
   email: string;
   password: string;
-  phone?: string;
-  role?: string;
+  phone_number?: string;
+  role: UserRoles;
   create_time?: string;
   update_time?: string;
 };

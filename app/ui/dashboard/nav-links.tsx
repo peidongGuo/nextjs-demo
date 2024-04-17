@@ -17,15 +17,15 @@ import clsx from 'clsx';
 // Depending on the size of the application, this would be stored in a database.
 const links = [
   { name: '首页', href: '/dashboard', icon: HomeIcon },
-  { name: '用户', href: '/dashboard/profile', icon: UserIcon },
+  { name: '用户', href: '/dashboard/users', icon: UserIcon },
   { name: '试卷', href: '/dashboard/papers', icon: DocumentDuplicateIcon },
   { name: '试题', href: '/dashboard/questions', icon: AcademicCapIcon },
   { name: '考试', href: '/dashboard/exams', icon: AcademicCapIcon },
-  {
-    name: '订单',
-    href: '/dashboard/orders',
-    icon: ShoppingCartIcon,
-  },
+  // {
+  //   name: '订单',
+  //   href: '/dashboard/orders',
+  //   icon: ShoppingCartIcon,
+  // },
   // { name: '数据看板', href: '/admin', icon: HomeIcon },
   // { name: '试卷列表', href: '/admin/papers', icon: DocumentDuplicateIcon },
   // { name: '试题列表', href: '/admin/questions', icon: PuzzlePieceIcon },

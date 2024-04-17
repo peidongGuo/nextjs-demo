@@ -11,7 +11,10 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
-    await signIn('credentials', formData);
+    let user = await signIn('credentials', formData);
+    console.log(user);
+    revalidatePath('/dashboard');
+    redirect('/dashboard');
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

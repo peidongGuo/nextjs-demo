@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation';
 import { DeleteQuestion, UpdateQuestion } from '../questions/buttons';
 import { CreateExam, DeletePaper, UpdatePaper } from '../papers/buttons';
+import { ToggleUserRole, DeleteUser } from '../users/buttons';
 import { deleteExam } from '@/app/services/actions-exams';
 import { TrashIcon } from '@heroicons/react/24/outline';
 
@@ -35,6 +36,16 @@ export function generateExamsAction(record?) {
     <>
       <a href={'/dashboard/exams/' + record.id}>查看</a>
       <DeleteExam id={record.id} />
+    </>
+  );
+}
+
+export function generateUsersAction(record?) {
+  console.log('record', record);
+  return (
+    <>
+      <ToggleUserRole user={record} />
+      <DeleteUser id={record.id} />
     </>
   );
 }

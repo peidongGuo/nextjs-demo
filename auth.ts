@@ -28,9 +28,15 @@ export const { auth, signIn, signOut } = NextAuth({
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
+          console.log('User:', user);
           if (!user) return null;
           const passwordsMatch = await bcrypt.compare(password, user.password);
-
+          console.log(
+            'Passwords match:',
+            passwordsMatch,
+            password,
+            user.password,
+          );
           if (passwordsMatch) return user;
         }
         console.log('Invalid credentials');
@@ -39,4 +45,16 @@ export const { auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.role = token.role;
+      return session;
+    },
+  },
 });
