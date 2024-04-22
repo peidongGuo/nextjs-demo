@@ -1,26 +1,45 @@
 'use client';
 
 import {
-  UserGroupIcon,
   UserIcon,
   HomeIcon,
   AcademicCapIcon,
-  PuzzlePieceIcon,
-  ShoppingCartIcon,
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
 const links = [
-  { name: '首页', href: '/dashboard', icon: HomeIcon },
-  { name: '用户', href: '/dashboard/users', icon: UserIcon },
-  { name: '试卷', href: '/dashboard/papers', icon: DocumentDuplicateIcon },
-  { name: '试题', href: '/dashboard/questions', icon: AcademicCapIcon },
-  { name: '考试', href: '/dashboard/exams', icon: AcademicCapIcon },
+  {
+    name: '首页',
+    href: '/dashboard',
+    icon: HomeIcon,
+    roles: ['admin', 'customer'],
+  },
+  { name: '用户', href: '/dashboard/users', icon: UserIcon, roles: ['admin'] },
+  {
+    name: '试卷',
+    href: '/dashboard/papers',
+    icon: DocumentDuplicateIcon,
+    roles: ['admin', 'customer'],
+  },
+  {
+    name: '试题',
+    href: '/dashboard/questions',
+    icon: AcademicCapIcon,
+    roles: ['admin', 'customer'],
+  },
+  {
+    name: '考试',
+    href: '/dashboard/exams',
+    icon: AcademicCapIcon,
+    roles: ['admin', 'customer'],
+  },
   // {
   //   name: '订单',
   //   href: '/dashboard/orders',
@@ -39,9 +58,24 @@ const links = [
 
 export default function NavLinks() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  console.log(session);
+  const [finalLinks, setFinalLinks] = useState([]);
+  useEffect(() => {
+    filterLinks();
+  });
+
+  const filterLinks = async () => {
+    console.log(session);
+    const { user } = session as any;
+    let tmpLinks = links.filter((link) => link.roles.includes(user.role));
+    console.log(tmpLinks);
+    setFinalLinks(tmpLinks as any);
+  };
+
   return (
     <>
-      {links.map((link) => {
+      {finalLinks.map((link) => {
         const LinkIcon = link.icon;
         return (
           <Link

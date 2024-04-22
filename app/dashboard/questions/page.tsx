@@ -5,6 +5,8 @@ import { Metadata } from 'next';
 import { generateAction, generateTime } from '@/app/ui/exams/action';
 import { fetchFilteredQuestions } from '@/app/services/data-questions';
 import { CreateQuestion } from '@/app/ui/questions/buttons';
+import { auth } from '@/auth';
+import { UserRoles } from '@/app/lib/models';
 
 export const metadata: Metadata = {
   title: '题目',
@@ -67,6 +69,8 @@ const columns = [
 ];
 
 export default async function Page() {
+  const session = await auth();
+  console.log(session, 'questions page');
   const questions = await fetchFilteredQuestions('');
   return (
     <div className="w-full">
@@ -75,7 +79,7 @@ export default async function Page() {
       </div>
       <div className="mb-4 mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="搜索关键字" />
-        <CreateQuestion />
+        {session?.user?.role === UserRoles.admin && <CreateQuestion />}
       </div>
       <Suspense key={'question-list'} fallback={<Skeleton active />}>
         <Table columns={columns} dataSource={questions} />

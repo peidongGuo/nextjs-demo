@@ -48,12 +48,16 @@ export const { auth, signIn, signOut } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        console.log('JWT User:', user);
         token.role = user.role;
+        token.phone_number = user.phone_number;
       }
       return token;
     },
     async session({ session, token }) {
-      session.role = token.role;
+      console.log('JWT User:', token);
+      session.user.role = token.role;
+      session.user.phone_number = token.phone_number;
       return session;
     },
   },

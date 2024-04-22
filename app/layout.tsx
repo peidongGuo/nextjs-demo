@@ -4,6 +4,8 @@ import { Metadata } from 'next';
 // import 'antd/dist/antd.css';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { StyleProvider } from '@ant-design/cssinjs';
+import Provider from '@/app/context/client-provider';
+import { auth } from '@/auth';
 
 export const metadata: Metadata = {
   title: {
@@ -13,16 +15,19 @@ export const metadata: Metadata = {
   description: 'The official Next.js Course Dashboard, built with App Router.',
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         {/* <StyleProvider hashPriority="high"> */}
-        <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <Provider session={session}>{children}</Provider>
+        </AntdRegistry>
         {/* </StyleProvider> */}
       </body>
     </html>
