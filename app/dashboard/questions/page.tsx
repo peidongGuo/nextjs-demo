@@ -70,7 +70,6 @@ const columns = [
 
 export default async function Page() {
   const session = await auth();
-  console.log(session, 'questions page');
   const questions = await fetchFilteredQuestions('');
   return (
     <div className="w-full">

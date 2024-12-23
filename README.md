@@ -170,3 +170,9 @@ For more information, see the [course curriculum](https://nextjs.org/learn) on t
 权限控制：管理员、消费者
 登录、注册、退出、找回密码 
 用户名、密码、邮箱、手机号、角色、创建时间、更新时间
+
+#### 2024.4.28
+模块优化
+使用 tailwind.css 统一网站平台风格
+深入学习 next.js 及其生态
+深入学习 react 及其生态
